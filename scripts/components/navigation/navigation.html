@@ -1,0 +1,26 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-brand"><span>{{ jBrand }}</span></div>
+    <div class="collapse navbar-collapse pull-right" id="js-navbar-collapse">
+        <ul class="nav navbar-nav">
+            
+            <li ng-repeat="link in jLinks" ui-sref-active="active">
+                <a ui-sref="{{ link.state }}" style='color:white;'>{{ link.label }}</a>
+            </li>
+            
+            <li ng-show="navigationCtrlDirective.auth.loggedIn" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Admin
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a ui-sref="admin.role.main">Role</a></li>
+                </ul>
+            </li>
+            
+            <li ng-hide="navigationCtrlDirective.auth.loggedIn"><a href='' ng-click="navigationCtrlDirective.popUpLogin()" style='color:white;'>Login</a></li>
+            <li ng-hide="navigationCtrlDirective.auth.loggedIn"><a href='' ng-click="navigationCtrlDirective.popUpRegister()" style='color:white;'>Register</a></li>
+            <li ng-show="navigationCtrlDirective.auth.loggedIn" ui-sref-active="active"><a ui-sref="admin.auth.logout" style='color:white;'>Logout</a></li>
+        </ul>
+    </div>
+</div>
+

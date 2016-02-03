@@ -1,0 +1,57 @@
+<h3 style='padding-left:20px;'>Register</h3>
+<form class="form-horizontal" style='height:250px;'>
+    
+    <div class="col-xs-12">
+        <div class="form-group">
+            
+            <!-- Username -->
+            <label class="col-xs-{{ ctrl.style.labelClassWidth }} control-label">Username</label>
+            
+            <div class="col-xs-{{ ctrl.style.inputClassWidth }}">
+                
+                <!-- Input type -->
+                <input type="text" 
+                       placeholder="Username" 
+                       ng-model="ctrl.model.properties.Username.value"
+                       class="form-control"
+                       autofocus/>
+                       
+                <debugging enable="ctrl.debugging" value="ctrl.model.properties.Username.value"/>
+            </div>
+        </div>
+        
+        <!-- Repeat each item in Model -->
+        <div class="form-group">
+            
+            <!-- Model item in label -->
+            <label class="col-xs-{{ ctrl.style.labelClassWidth }} control-label">Password</label>
+            
+            <div class="col-xs-{{ ctrl.style.inputClassWidth }}">
+                
+                <!-- Input Password -->
+                <input type="password" 
+                       placeholder="Password" 
+                       ng-model="ctrl.model.properties.Password.value"
+                       class="form-control"/>
+                       
+                <debugging enable="ctrl.debugging" value="ctrl.model.properties.Password.value"/>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-xs-offset-{{ ctrl.style.labelClassWidth }} col-xs-{{ ctrl.style.inputClassWidth }}">
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <div class="g-recaptcha" data-sitekey="{{ ctrl.recaptcha.sitekey }}"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-{{ ctrl.style.labelClassWidth }} col-xs-{{ ctrl.style.inputClassWidth }}">
+                <button type="submit" 
+                        class="btn btn-default"
+                        ng-click="ctrl.onClick('Create')">
+                    Register
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

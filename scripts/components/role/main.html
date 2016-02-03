@@ -1,0 +1,23 @@
+<j-notification display='ctrl.notification.display' 
+              type='ctrl.notification.type' 
+              message='ctrl.notification.message'>
+</j-notification>
+              
+<h3 style='padding-top:20px;'>{{ ctrl.title }}</h3>
+<a ui-sref="role.create">Create new Role</a>
+<div class='container-fluid'>
+    <div class='row' style='border-bottom:1px solid black;'>
+        <div class='col-xs-3'
+             ng-repeat='(key, value) in ctrl.model.properties track by $index'>
+            {{ key }}
+        </div>
+    </div>
+    <div class='row' ng-repeat='resource in ctrl.list track by $index' style='border-bottom:1px dashed gray;'>
+        <div class='col-xs-3' ng-repeat='(key, object) in resource.properties track by $index'>
+            <div ng-switch='key'>
+                <div ng-switch-when='Name'><a ui-sref='role.read.id({id:"{{ resource.id }}"})'>{{ object.value }}</a></div>
+                <div ng-switch-default>{{ object.value }}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+<!-- Input type = text || password || email || color -->
+<div ng-mouseover="pencil=true"
+     ng-mouseleave="pencil=false"
+     style='width:100%;min-height:20px;'>
+    <span ng-hide="editable"
+          ng-switch="inputType">
+        
+        <!-- Input type = checkbox -->
+        <span ng-switch-when="checkbox"
+              ng-repeat="(key, value) in inputValue track by $index"
+              ng-show="value">{{ key }}, </span>
+        
+        <!-- Input type = select -->
+        <span ng-switch-when="select">{{ inputValue.label }}</span>
+
+        <!-- Input type = color -->
+        <span ng-switch-when="color" style="background-color:{{ inputValue }};border-radius:5px;padding:2px 5px 2px 5px;">{{ inputValue }}</span>
+        
+        <!-- Other Input types -->
+        <span ng-switch-default>{{ inputValue }}</span>
+        
+        <span showRole='{{ctrl.model.name}}' 
+              action-type='Edit (owner)'
+              class="glyphicon glyphicon-pencil" 
+              aria-hidden="true"
+              ng-show="pencil"
+              ng-click="editable=true" style='width:15px;'>
+        </span>
+    </span>
+    
+    <span ng-show="editable" 
+          ng-init="inlineCtrlDirective.setTemporary(inputValue)"
+          ng-switch="inputType">
+        
+        <!-- Input type = checkbox -->
+        <div ng-switch-when="checkbox"
+             ng-repeat="(checkboxItem, checkboxValue) in inputOptions" >
+            <input type="checkbox" 
+                   ng-model="inlineCtrlDirective.temporary[checkboxItem]"
+                   ng-disabled="inputDisabled"/>
+            {{ checkboxItem }}
+        </div>
+        
+        <!-- Input type = radio -->
+        <div ng-switch-when="radio"
+             ng-repeat="radioOption in inputOptions">
+            <input type="radio"
+                   ng-model="inlineCtrlDirective.temporary"
+                   value="{{ radioOption }}"
+                   ng-disabled="inputDisabled"/>
+            {{ radioOption }}
+        </div>
+        
+        <!-- Input type = select -->
+        <select ng-switch-when="select"
+                class="form-control"
+                style="width:calc(100% - 40px);display:inline;"
+                ng-options="item.label for item in inputOptions track by item.id"
+                ng-model="inlineCtrlDirective.temporary"
+                ng-disabled="inputDisabled">
+        </select>
+        
+        <!-- Input type = textarea -->
+        <textarea ng-switch-when="textarea" 
+                  class="form-control"
+                  style="width:calc(100% - 40px);display:inline;"
+                  rows="5"
+                  placeholder="{{ inputPlaceholder }}" 
+                  ng-model="inlineCtrlDirective.temporary"
+                  ng-disabled="inputDisabled">
+        </textarea>
+                
+        <!-- Other Input types -->
+        <input ng-switch-default 
+               type="{{ inputType }}"
+               class="form-control"
+               style="width:calc(100% - 40px);display:inline;"
+               placeholder="{{ inputPlaceholder }}"
+               ng-model="inlineCtrlDirective.temporary"
+               ng-disabled="inputDisabled" />
+        
+        <!-- Ok Glyphicon -->       
+        <span class="glyphicon glyphicon-ok" 
+              aria-hidden="true"
+              style="vertical-align:top;padding-top:7px;"
+              ng-click="actionClick({params: [inputPlaceholder, inlineCtrlDirective.temporary]});editable=false">
+        </span>
+        
+        <!-- Cancel Glyphicon-->
+        <span class="glyphicon glyphicon-remove" 
+              aria-hidden="true"
+              style="vertical-align:top;padding:7px 0px 7px 0px;"
+              ng-click="editable=false;inlineCtrlDirective.setTemporary(inputValue)">
+        </span>
+    </span>
+</div>
